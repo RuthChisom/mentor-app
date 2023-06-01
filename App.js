@@ -1,30 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ImageBackground } from 'react-native';
-import FirstSection from './src/components/FirstSection';
-import RegisterInput from './src/components/RegisterInput';
+import { StyleSheet, Text, View, ImageBackground, ScrollView } from 'react-native';
+import AuthenticationContainer from './src/components/AuthenticationContainer';
 
+import Register from './src/screens/Register';
+import OTP from './src/screens/OTP';
+ 
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
+
+// import { setFontFamily } from 'react-native-vector-icons/FontAwesome';
+
+// setFontFamily('CustomFontFamily', 'FontAwesome');
+ 
 export default function App() {
   return (
-    // <View style={styles.container}>
-    <View style={{ flex:1}}>
-      {/* registration banner */}
-      {/* <View style={{backgroundColor:'black', height:'50%'}}> */}
-        {/* 42a1f5 */}
-        <ImageBackground
-          source={require("./src/assets/images/register.jpg")}
-          // resizeMode="cover"
-          style = {{width:'100%', height:'60%'}}
-        >
-          <FirstSection title="Register" subtitle="Create your Account"/>
-        </ImageBackground>
-        
-      {/* </View> */}
-      {/* registration form */}
-      <View style={{ marginTop:-210}}>
-        <RegisterInput/>
-      </View>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer style={{ }}>
+      <Stack.Navigator screenOptions={{headerShown:false}} >
+          <Stack.Screen name='Register' component={Register}/>
+          <Stack.Screen name='OTP' component={OTP}/>
+      </Stack.Navigator>
+
+    <StatusBar style="auto" />
+
+    </NavigationContainer>
   );
 }
 
@@ -34,5 +36,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    fontFamily:'nunito-sans'
   },
 });

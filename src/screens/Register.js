@@ -1,10 +1,12 @@
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import React from 'react'
+import AuthenticationContainer from '../components/AuthenticationContainer'
+import RegisterInput from '../components/RegisterInput'
 
 const Register = () => {
   return (
     <View>
-      <Text>Register</Text>
+          <AuthenticationContainer title="Register" subtitle="Create your Account" secondTag={<RegisterInput/>}/>
     </View>
   )
 }

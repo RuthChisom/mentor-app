@@ -1,36 +1,59 @@
-import { View, Text, TextInput, Alert, Button, TouchableOpacity, Pressable, Image } from 'react-native'
+import { View, Text, TextInput, Alert, Button, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
+
+import { useNavigation } from '@react-navigation/native';
+
 
 const RegisterInput = () => {
     // define name as hook, so that input will show in textinput box
-    const [name, setName] = useState('');
+    const [fullname, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [passwordIcon, setPasswordIcon] = useState(require('../assets/icons/hide.png'));
+    // const [passwordIcon, setPasswordIcon] = useState(require('../assets/icons/hide.png'));
+
+    const navigation = useNavigation();
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
         console.log('password')
     };
 
+    const isValidEmail = (email) => {
+      // Email regex pattern
+      const emailPattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+      return emailPattern.test(email);
+    };
+
     const submitData = () => {
         let myInfo = {
-            name,
+            fullname,
             email,
             phone,
             password
         }
         console.log("Data Submitted", myInfo);
-    }
+        // check that no field is empty
+        if(fullname === '' || email === '' || phone === '' || password === ''){
+          // if(fullname.trim() === ''){
+          Alert.alert('Error', 'Please fill in the required(*) field(s).');
+          return;
+        }
+        // check that emailis valid
+        if (!isValidEmail(email)) {
+          Alert.alert('Error', 'Please enter a valid email address.');
+          return;
+        }
+        navigation.navigate('OTP');
+      }
 
   return (
-    <View style={{margin: 15}}>
+    <View style={{margin: 15, marginTop:-15}}>
         {/* Name */}
-        <Text style={{fontWeight:'bold'}}>Name</Text>
+        <Text style={{fontWeight:'bold'}}>Name*</Text>
         <TextInput
-            //   value={name}
+            //   value={fullname}
             onChangeText={setName}
             placeholder={'Please enter your Fullname '}
             placeholderTextColor={{color:'red'}}
@@ -38,17 +61,19 @@ const RegisterInput = () => {
         />
 
       {/* Email */}
-      <Text style={{fontWeight:'bold'}}>Email</Text>
+      <Text style={{fontWeight:'bold'}}>Email*</Text>
       <TextInput
         onChangeText={setEmail}
         placeholder={'Please enter your Email Address '}
         placeholderTextColor={{color:'red'}}
         style={{borderWidth: 1,padding: 10, borderColor: 'black', borderRadius: 10, marginTop: 5, marginBottom: 10}}
-        keyboardType="email-address"    
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
       />
 
       {/* Phone Number */}
-      <Text style={{fontWeight:'bold'}}>Phone Number</Text>
+      <Text style={{fontWeight:'bold'}}>Phone Number*</Text>
       <TextInput
         onChangeText={setPhone}
         placeholder={'Please enter your Phone Number '}
@@ -58,7 +83,7 @@ const RegisterInput = () => {
       />
 
       {/* Password */}
-      <Text style={{fontWeight:'bold'}}>Password</Text>
+      <Text style={{fontWeight:'bold'}}>Password*</Text>
       <View style={{marginBottom:10,flexDirection:'row', justifyContent: 'center',borderWidth: 1, borderRadius: 10, }}>
         <TextInput
             onChangeText={setPassword}
@@ -66,6 +91,7 @@ const RegisterInput = () => {
             placeholderTextColor={{color:'red'}}
             style={{ paddingLeft: 10,marginTop: 5, marginBottom: 10, flex:1}}
             secureTextEntry={!showPassword}
+            require
         />
         <TouchableOpacity
             onPress={togglePasswordVisibility}
@@ -76,34 +102,6 @@ const RegisterInput = () => {
             />
         </TouchableOpacity>
       </View>
-      
-
-      {/* <View style={{margin: 10, flexDirection: 'row', justifyContent: "space-between"}}>
-        <View style={{justifyContent:'center'}}>
-            <Text style={{fontSize: 10}}> Name:</Text>
-        </View>
-        <View style={{flex:1, paddingLeft:15, justifyContent:'center'}}>
-            <Text style={{fontSize: 10, color: 'purple'}}>{name}</Text>
-        </View>
-      </View>
-
-      <View style={{margin: 10, flexDirection: 'row', justifyContent: "space-between"}}>
-        <View style={{justifyContent:'center'}}>
-            <Text style={{fontSize: 10}}>Email:</Text>
-        </View>
-        <View style={{flex:1, paddingLeft:15, justifyContent:'center'}}>
-            <Text style={{fontSize: 10, color: 'purple'}}>{email}</Text>
-        </View>
-      </View>
-
-      <View style={{margin: 10, flexDirection: 'row', justifyContent: "space-between"}}>
-        <View style={{justifyContent:'center'}}>
-            <Text style={{fontSize: 10}}>Phone:</Text>
-        </View>
-        <View style={{flex:1, paddingLeft:15, justifyContent:'center'}}>
-            <Text style={{fontSize: 10, color: 'purple'}}>{phone}</Text>
-        </View>
-      </View> */}
 
       <Button title='Sign Up' onPress={submitData} style={{borderRadius:20}} />
       <Text style={{textAlign:'center',padding:10, fontWeight:'bold'}}>Sign up with</Text>
