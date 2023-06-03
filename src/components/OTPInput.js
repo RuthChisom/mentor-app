@@ -1,8 +1,11 @@
 import { View, Text, TextInput, TouchableOpacity , Alert} from 'react-native'
 import React , { useRef, useState, useEffect }from 'react'
 
+import { useNavigation } from '@react-navigation/native';
+
 const OTPInput = () => {
-  const [inputValues, setInputValues] = useState(['', '', '', '']); // Initial values for each TextInput field
+    const navigation = useNavigation();
+    const [inputValues, setInputValues] = useState(['', '', '', '']); // Initial values for each TextInput field
 
   const inputRefs = useRef([]);
   const totalInputs = 4;
@@ -29,7 +32,6 @@ const OTPInput = () => {
   }, [count]);
 
   const handleInputChange = (value,index) => {
-    console.log("value=",value,index)
     // to move cursor to next field
     if (value.length === 1 && index < totalInputs - 1) {
       inputRefs.current[index + 1].focus();
@@ -68,6 +70,8 @@ const OTPInput = () => {
     }
     const token = inputValues.join('');
     console.log('token=',token);
+    // if token matches db, proceed to login page
+    navigation.navigate('Login');
 
   }
 
@@ -76,7 +80,9 @@ const OTPInput = () => {
       <View style={{flexDirection:'row', justifyContent:'space-evenly'}}>
         {renderInputs()}
       </View>
-      <Text style={{textAlign:'right', fontWeight:'bold',padding:10}}>Resend in 00.{count}s</Text>
+      <Text style={{textAlign:'right', fontWeight:'bold',padding:10}}>Resend code in 
+        <Text style={{color:'#73C5FF'}}> 00.{count}s</Text>
+      </Text>
       <TouchableOpacity 
         style={{marginTop:150, margin:10,backgroundColor:'#0E91EF', borderRadius:10, padding:10}}
         onPress={verifyOTP}

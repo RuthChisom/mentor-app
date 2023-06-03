@@ -4,6 +4,7 @@ import AuthenticationContainer from './src/components/AuthenticationContainer';
 
 import Register from './src/screens/Register';
 import OTP from './src/screens/OTP';
+import Login from './src/screens/Login';
  
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -22,6 +23,7 @@ export default function App() {
       <Stack.Navigator screenOptions={{headerShown:false}} >
           <Stack.Screen name='Register' component={Register}/>
           <Stack.Screen name='OTP' component={OTP}/>
+          <Stack.Screen name='Login' component={Login}/>
       </Stack.Navigator>
 
     <StatusBar style="auto" />

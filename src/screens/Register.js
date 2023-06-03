@@ -5,7 +5,7 @@ import RegisterInput from '../components/RegisterInput'
 
 const Register = () => {
   return (
-    <View>
+    <View style={{backgroundColor:'white'}}>
           <AuthenticationContainer title="Register" subtitle="Create your Account" secondTag={<RegisterInput/>}/>
     </View>
   )
