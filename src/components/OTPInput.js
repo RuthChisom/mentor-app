@@ -84,7 +84,7 @@ const OTPInput = () => {
         <Text style={{color:'#73C5FF'}}> 00.{count}s</Text>
       </Text>
       <TouchableOpacity 
-        style={{marginTop:150, margin:10,backgroundColor:'#0E91EF', borderRadius:10, padding:10}}
+        style={{marginTop:150, margin:10,backgroundColor:'#3EACFA', borderRadius:10, padding:10}}
         onPress={verifyOTP}
       >
         <Text style={{textAlign:'center', color:'white'}}>Verify</Text>

@@ -38,7 +38,7 @@ const LoginInput = () => {
           return;
         }
         // check if login details are correct
-        // navigation.navigate('Welcome');
+        navigation.navigate('WelcomeFirst');
       }
 
   return (
@@ -80,7 +80,7 @@ const LoginInput = () => {
         style={{color:'#1a6dba', textAlign:'right',fontSize:12, marginTop:-10}}
         onPress={() => {
           navigation.navigate('ForgotPassword');
-      }}
+        }}
       >
         Forgotten Password?
       </Text>
