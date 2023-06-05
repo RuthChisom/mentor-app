@@ -1,6 +1,7 @@
-import { View, Text, SafeAreaView, TouchableOpacity, FlatList, StyleSheet } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, FlatList, StyleSheet, Alert } from 'react-native'
 import React, { useState, useEffect } from 'react'
 
+import { useNavigation } from '@react-navigation/native';
 // import MultiSelect from 'react-native-multiple-select';
 
 const items = [{
@@ -46,6 +47,8 @@ const items = [{
 ];
 
 const Interests = () => {
+  const navigation = useNavigation();
+
     // Data Source for the SearchableDropdown
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -88,6 +91,17 @@ const handleItemPress = (itemId) => {
     );
   };
 
+  const saveInterests = () => {
+    if(selectedItems.length<3){
+      Alert.alert('Error', 'Please select AT LEAST THREE(3) Interests!');
+      return;
+    }
+    console.log("selected=", selectedItems);
+
+    // not sure what to do here, proceed to be a mentor page
+    navigation.navigate('BeMentor');
+  }
+
 //   const keyExtractor = (item) => item.id + numColumns;
 
   return (
@@ -110,7 +124,8 @@ const handleItemPress = (itemId) => {
 {/* end of select options */}
 
       <TouchableOpacity
-      style={{borderRadius:5, padding:10, backgroundColor:'#3EACFA', width:70, alignSelf:'flex-end', margin:10}}
+        style={{borderRadius:5, padding:10, backgroundColor:'#3EACFA', width:70, alignSelf:'flex-end', margin:10}}
+        onPress={saveInterests}
       >
         <Text style={{color:'white', textAlign:'center'}}>Next</Text>
       </TouchableOpacity>

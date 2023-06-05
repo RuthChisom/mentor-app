@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import Register from './src/screens/Register';
 import OTP from './src/screens/OTP';
@@ -8,6 +8,9 @@ import ForgotPassword from './src/screens/ForgotPassword';
 import WelcomeFirst from './src/screens/WelcomeFirst';
 import WelcomeSecond from './src/screens/WelcomeSecond';
 import Interests from './src/screens/Interests';
+import BeMentor from './src/screens/BeMentor';
+import Profile from './src/screens/Profile';
+import Posts from './src/screens/Posts';
  
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -31,6 +34,9 @@ export default function App() {
           <Stack.Screen name='WelcomeFirst' component={WelcomeFirst}/>
           <Stack.Screen name='WelcomeSecond' component={WelcomeSecond}/>
           <Stack.Screen name='Interests' component={Interests}/>
+          <Stack.Screen name='BeMentor' component={BeMentor}/>
+          <Stack.Screen name='Profile' component={Profile}/>
+          <Stack.Screen name='Posts' component={Posts}/>
       </Stack.Navigator>
 
     <StatusBar style="auto" />
