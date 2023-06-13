@@ -8,32 +8,21 @@ import DropdownSelect from 'react-native-input-select';
 const Profile = () => {
     const navigation = useNavigation();
     const profilePic = picLoc = false //fetch from backend
-    // const genderOptions = [{
-    //     id: '0',
-    //     name: 'Female'
-    //   }, {
-    //     id: '1',
-    //     name: 'Male'
-    //   },, {
-    //     id: '2',
-    //     name: 'Prefer not to say'
-    //   },
-    // ]
-    const genderOptions = ['Female', 'Male'
-    ]
 
     const [gender, setGender] = useState('');
+    const [job, setJob] = useState('');
     const [bio, setBio] = useState('');
     const [education, setEducation] = useState('');
-    const [job, setJob] = useState('');
+    const [experience, setExperience] = useState('');
     const [mentorship, setMentorship] = useState('');
 
     const saveProfile = () => {
         let myProfile = {
             gender,
+            job,
             bio,
             education,
-            job,
+            experience,
             mentorship
         }
         console.log("Data Submitted", myProfile);
@@ -42,7 +31,7 @@ const Profile = () => {
       }
 
   return (
-        <SafeAreaView>
+        <SafeAreaView style={{backgroundColor:'white'}}>
             <ScrollView>
 
             <View style={{flexDirection:'row', justifyContent:'space-between', marginLeft:'30%', padding:10}}>
@@ -74,14 +63,24 @@ const Profile = () => {
             </View>
 
             <View style={{margin: 15, marginTop:15}}>
+                <Text style={{fontWeight:'bold'}}>Gender</Text>
                 <DropdownSelect
-                    options={genderOptions}
+                    options={[
+                        { name: 'Male'},
+                        { name: 'Female'},
+                        { name: 'Binary'},
+                        { name: 'Prefer Not To Say'},
+                      ]}
+                    optionLabel={'name'}
+                    optionValue={'name'}
+                    selectedValue={gender}
+                    onValueChange={(itemValue) => setGender(itemValue)}
                 />
-                {/* <Text style={{fontWeight:'bold'}}>Gender</Text>
+                <Text style={{fontWeight:'bold'}}>Job Description</Text>
                 <TextInput
-                    onChangeText={setGender}
+                    onChangeText={setJob}
                     style={[styles.inputField]}
-                /> */}
+                />
                 <Text style={{fontWeight:'bold'}}>Bio</Text>
                 <TextInput
                     onChangeText={setBio}
@@ -100,7 +99,7 @@ const Profile = () => {
                 />
                 <Text style={{fontWeight:'bold'}}>Job Experience</Text>
                 <TextInput
-                    onChangeText={setJob}
+                    onChangeText={setExperience}
                     style={[styles.inputField]}
                     multiline
                     numberOfLines={4}

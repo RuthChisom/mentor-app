@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Alert, Button, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TextInput, Alert, Modal, TouchableOpacity, Image, StyleSheet, Button } from 'react-native'
 import React, { useState } from 'react'
 
 import { useNavigation } from '@react-navigation/native';
@@ -6,12 +6,18 @@ import { useNavigation } from '@react-navigation/native';
 
 const RegisterInput = () => {
     // define name as hook, so that input will show in textinput box
-    const [fullname, setName] = useState('');
+    const [fullName, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
+    var [phoneNumber, setPhone] = useState(0);
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    // const [passwordIcon, setPasswordIcon] = useState(require('../assets/icons/hide.png'));
+    const [modalVisible, setModalVisible] = useState(false);
+    const [apiMessage, setApiMessage] = useState('Loading...');
+
+    const closeModal = () => {
+      setApiMessage('Loading...');
+      setModalVisible(false);
+    };
 
     const navigation = useNavigation();
 
@@ -26,17 +32,10 @@ const RegisterInput = () => {
       return emailPattern.test(email);
     };
 
-    const submitData = () => {
-        let myInfo = {
-            fullname,
-            email,
-            phone,
-            password
-        }
-        console.log("Data Submitted", myInfo);
+    const submitData = async () => {
         // check that no field is empty
-        if(fullname === '' || email === '' || phone === '' || password === ''){
-          // if(fullname.trim() === ''){
+        if(fullName === '' || email === '' || phoneNumber === '' || password === ''){
+          // if(fullName.trim() === ''){
           Alert.alert('Error', 'Please fill in the required(*) field(s).');
           return;
         }
@@ -45,16 +44,58 @@ const RegisterInput = () => {
           Alert.alert('Error', 'Please enter a valid email address.');
           return;
         }
-        // send random token from api to email
-        navigation.navigate('OTP');
+
+        phoneNumber = parseInt(phoneNumber, 10);
+
+        let myInfo = {
+          fullName,
+          email,
+          phoneNumber,
+          password
       }
+      console.log("Data Submitted", myInfo);
+        const requestOptions = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(myInfo)
+        };
+
+        setModalVisible(true);
+
+        // send form to api
+          try {
+              await fetch(
+                  'https://inspireapp-server.onrender.com/api/v1/auth/create-account', requestOptions)
+                  .then(response => {
+                      response.json()
+                          .then(data => {
+                            console.log(data);
+                            // Alert.alert(data.message);
+                            setTimeout(() => {
+                              setApiMessage(data.message);
+                            // setModalVisible(false);
+                              console.log('API response:', apiMessage);
+                            }, 2000); // Simulating a delay of 2 seconds before receiving the API response
+                            if(data.status==='Success'){
+                              navigation.navigate('OTP');
+                            }
+                          });
+                  })
+          }
+          catch (error) {
+              console.error(error);
+          }
+      // }
+        }
+      
+      // }
 
   return (
     <View style={{margin: 15, marginTop:-15}}>
         {/* Name */}
-        <Text style={{fontWeight:'bold'}}>Name*</Text>
+        <Text style={{fontWeight:'bold'}}>Full Name*</Text>
         <TextInput
-            //   value={fullname}
+            //   value={fullName}
             onChangeText={setName}
             placeholder={'Please enter your Fullname '}
             placeholderTextColor={{color:'red'}}
@@ -108,6 +149,20 @@ const RegisterInput = () => {
         <Text style={{color:'white', textAlign:'center'}}>Sign Up</Text>
       </TouchableOpacity>
 
+      <Modal
+        visible={modalVisible}
+        animationType="fade"
+        transparent={true}
+        // onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>{apiMessage}</Text>
+            <Button title="OK" onPress={closeModal} />
+          </View>
+        </View>
+      </Modal>
+
       {/* <Button title='Sign Up' onPress={submitData} style={{borderRadius:20}} /> */}
       <Text style={{textAlign:'center',padding:10, fontWeight:'bold'}}>Sign up with</Text>
       <View style={{flexDirection:'row', justifyContent:'space-between', margin:15}}>
@@ -139,5 +194,24 @@ const RegisterInput = () => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 8,
+  },
+  modalText: {
+    fontSize: 18,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+});
 
 export default RegisterInput
