@@ -32,20 +32,20 @@ const BeMentor = () => {
         onPress={() => handleItemPress('yes')}
         style={[
         styles.itemContainer,
-        {backgroundColor: mentor== 1 ? '#3EACFA' : 'transparent'}
+        {backgroundColor: mentor== 1 ? '#F26C0C' : 'transparent'}
 
         ]} 
       >
-        <Text style={[styles.textField]}> Yes</Text>
+        <Text style={{textAlign:'center', color:mentor== 0 ?'#F26C0C':'white'}}> Yes</Text>
       </TouchableOpacity>
       <TouchableOpacity 
         onPress={() => handleItemPress('no')}
         style={[
         styles.itemContainer,
-        {backgroundColor: mentor== 0 ? '#3EACFA' : 'transparent'}
+        {backgroundColor: mentor== 0 ? '#F26C0C' : 'transparent'}
     ]} 
         >
-        <Text style={[styles.textField]}> No</Text>
+        <Text style={{textAlign:'center', color:mentor== 1 ?'#F26C0C':'white'}}> No</Text>
       </TouchableOpacity>
       </View>
 
@@ -60,11 +60,11 @@ const BeMentor = () => {
 }
 
 const styles = StyleSheet.create({
-    textField: {
-        textAlign:'center', color:'orange'
-    },
+    // textField: {
+    //     textAlign:'center', color:mentor== 0 ?'#F26C0C':'white'
+    // },
     itemContainer: {
-        borderWidth:1.5, borderRadius:8, borderColor:'orange', padding:10, width:'45%'
+        borderWidth:1.5, borderRadius:8, borderColor:'#F26C0C', padding:10, width:'45%'
     },
   });
 

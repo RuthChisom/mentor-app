@@ -54,6 +54,7 @@ const RegisterInput = () => {
           password
       }
       console.log("Data Submitted", myInfo);
+
         const requestOptions = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -77,7 +78,7 @@ const RegisterInput = () => {
                               console.log('API response:', apiMessage);
                             }, 2000); // Simulating a delay of 2 seconds before receiving the API response
                             if(data.status==='Success'){
-                              navigation.navigate('OTP');
+                              navigation.navigate('OTP', { email}); //send email along to new screen
                             }
                           });
                   })
@@ -85,10 +86,7 @@ const RegisterInput = () => {
           catch (error) {
               console.error(error);
           }
-      // }
         }
-      
-      // }
 
   return (
     <View style={{margin: 15, marginTop:-15}}>

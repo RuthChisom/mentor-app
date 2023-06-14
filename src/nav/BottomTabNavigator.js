@@ -1,7 +1,7 @@
 import { View, Image } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Register from '../screens/Register';
+// import Register from '../screens/Register';
 import Posts from '../screens/Posts';
 // import Spaces from '../screens/Spaces';
 import postEdit from '../screens/PostEdit'
@@ -17,7 +17,11 @@ const BottomTabNavigator = () => {
   return (
       <Tab.Navigator
         initialRouteName="TopStackNavigator"
-        screenOptions={{ headerShown: false, tabBarShowLabel: false }}
+        // screenOptions={{ headerShown: false, tabBarShowLabel: false }}
+        screenOptions={{ tabBarShowLabel: false,
+            activeTintColor: 'red', // Default activeTintColor
+            inactiveTintColor: 'gray', }}
+        
       >
       {/* Define your tab screens here */}
       <Tab.Screen
@@ -41,7 +45,7 @@ const BottomTabNavigator = () => {
             name='Explore'
             component={Explore}
             options={{
-                headerShown:false,
+                // headerShown:false,
                 tabBarIcon: () => {
                     return (
                         <View style={{paddingTop: 12, alignItems: 'center', justifyContent: 'center'}}>
@@ -53,12 +57,13 @@ const BottomTabNavigator = () => {
                     )
                 }
             }}
+            
         />
         <Tab.Screen
-            name='postEdit'
+            name='Write Post'
             component={postEdit}
             options={{
-                headerShown:false,
+                // headerShown:false,
                 tabBarIcon: () => {
                     return (
                         <View style={{paddingTop: 12, alignItems: 'center', justifyContent: 'center'}}>
@@ -75,7 +80,7 @@ const BottomTabNavigator = () => {
             name='Jobs'
             component={Jobs}
             options={{
-                headerShown:false,
+                // headerShown:false,
                 tabBarIcon: () => {
                     return (
                         <View style={{paddingTop: 12, alignItems: 'center', justifyContent: 'center'}}>
@@ -106,7 +111,14 @@ const BottomTabNavigator = () => {
             }}
         />
 
-        <Tab.Screen name="TopStackNavigator" component={TopStackNavigator} />
+        <Tab.Screen 
+          name="TopStackNavigator" 
+          component={TopStackNavigator}
+          options={{
+            headerShown:false,
+            tabBarStyle: {display: "none",},
+          }}
+           />
 
       </Tab.Navigator>
   )

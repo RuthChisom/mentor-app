@@ -6,44 +6,53 @@ import { useNavigation } from '@react-navigation/native';
 
 const items = [{
     id: 0,
-    name: 'Ondo'
+    name: 'Mentoring'
   }, {
     id: 1,
-    name: 'Ogun'
+    name: 'Job Opportunities'
   }, {
     id: 2,
-    name: 'Calabar'
+    name: 'Mentorship'
   }, {
     id: 3,
-    name: 'Lagos'
+    name: 'Fashion'
   }, {
     id: 4,
-    name: 'Maiduguri'
+    name: 'Business/Finace'
   }, {
     id: 5,
-    name: 'Anambra'
+    name: 'Tech/IT'
   }, {
     id: 6,
-    name: 'Benue'
+    name: 'Entertainment'
   }, {
     id: 7,
-    name: 'Kaduna'
+    name: 'News'
   }, {
     id: 8,
-    name: 'Abuja'
+    name: 'Secondary'
     }, {
         id: 9,
-        name: 'Mentoring'
+        name: 'Travel'
       }, {
         id: 10,
-        name: 'Fashion'
+        name: 'Gaming'
       }, {
         id: 11,
-        name: 'Culture'
+        name: 'Politics'
       }, {
         id: 12,
-        name: 'Academics'
-        }
+        name: 'Music'
+        }, {
+          id: 13,
+          name: 'Arts'
+          }, {
+            id: 14,
+            name: 'Culture'
+            }, {
+              id: 15,
+              name: 'Design'
+              }
 ];
 
 const Interests = () => {
@@ -80,11 +89,11 @@ const handleItemPress = (itemId) => {
       <TouchableOpacity
         style={[
         styles.itemContainer,
-          {backgroundColor: isSelected ? '#3EACFA' : 'transparent'}
+          {backgroundColor: isSelected ? '#F26C0C' : 'transparent'}
         ]}
         onPress={() => handleItemPress(item.id)}
       >
-        <Text style={{ color: isSelected ? 'white' : 'orange' , fontWeight:'bold'}}>
+        <Text style={{ color: isSelected ? 'white' : '#F26C0C' , fontWeight:'bold', alignSelf:'center'}}>
           {item.name}
         </Text>
       </TouchableOpacity>
@@ -137,7 +146,7 @@ const styles = StyleSheet.create({
     listContainer: {
       paddingHorizontal: 10,
       marginTop:20,
-      marginBottom:50,
+      marginBottom:30,
     },
     itemContainer: {
       flex: 1,
@@ -145,7 +154,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'transparent',
       borderWidth:1,
       borderRadius:8,
-      borderColor:'orange',
+      borderColor:'#F26C0C',
       margin:10
     },
   });

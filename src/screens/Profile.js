@@ -27,7 +27,7 @@ const Profile = () => {
         }
         console.log("Data Submitted", myProfile);
         
-        navigation.navigate('Posts');
+        navigation.navigate('Home');
       }
 
   return (
@@ -38,7 +38,7 @@ const Profile = () => {
                 <Text style={{textAlign:'center', fontSize: 20, fontWeight:'bold'}}>Create Profile</Text>
                 <Text 
                     style={{fontSize:12, color:'#3EACFA', padding:8}}
-                    onPress={() => {navigation.navigate('Posts')}}
+                    onPress={() => {navigation.navigate('Home')}}
                 >
                     Skip
                 </Text>

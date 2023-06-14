@@ -1,10 +1,12 @@
 import { View, Text, TextInput, TouchableOpacity , Alert} from 'react-native'
 import React , { useRef, useState, useEffect }from 'react'
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const OTPInput = () => {
     const navigation = useNavigation();
+    const route = useRoute();
+    const email = route.params?.email;
     const [inputValues, setInputValues] = useState(['', '', '', '']); // Initial values for each TextInput field
 
   const inputRefs = useRef([]);
@@ -61,7 +63,7 @@ const OTPInput = () => {
     return inputs;
   };
 
-  const verifyOTP = () => {
+  const verifyOTP = async () => {
     for(let j=1;j<=inputValues.length;j++){
       if(inputValues[j]===''){
         Alert.alert('Error', 'Please enter a 4-Digit Token!!');
@@ -69,9 +71,35 @@ const OTPInput = () => {
       }
     }
     const token = inputValues.join('');
-    console.log('token=',token);
-    // if token matches db, proceed to login page
-    navigation.navigate('Login');
+    console.log('token=',token,email);
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({otp:token,email})
+    };
+    try {
+      await fetch(
+          'https://inspireapp-server.onrender.com/api/v1/auth/verify-email', requestOptions)
+          .then(response => {
+              response.json()
+                  .then(data => {
+                    console.log(data);
+                    Alert.alert(data.message);
+                    // setTimeout(() => {
+                    //   setApiMessage(data.message);
+                    // // setModalVisible(false);
+                    //   console.log('API response:', apiMessage);
+                    // }, 2000); // Simulating a delay of 2 seconds before receiving the API response
+                    // if token matches db, proceed to login page
+                    if(data.status==='Success'){
+                      navigation.navigate('Login');
+                    }
+                  });
+          })
+    }
+    catch (error) {
+        console.error(error);
+    }
 
   }
 
