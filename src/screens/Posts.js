@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, SafeAreaView, Image, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, Image, FlatList, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native';
 

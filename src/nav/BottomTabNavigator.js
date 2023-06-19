@@ -17,6 +17,8 @@ const BottomTabNavigator = () => {
   return (
       <Tab.Navigator
         initialRouteName="TopStackNavigator"
+        activeColor="red"
+      inactiveColor="gray"
         // screenOptions={{ headerShown: false, tabBarShowLabel: false }}
         screenOptions={{ tabBarShowLabel: false,
             activeTintColor: 'red', // Default activeTintColor
@@ -34,11 +36,17 @@ const BottomTabNavigator = () => {
                         <View style={{paddingTop: 12, alignItems: 'center', justifyContent: 'center'}}>
                             <Image
                                 source={require("../assets/icons/home.png")}
-                                style={{width:20, height:20, tintColor: "#0077b6"}}
+                                style={{width:20, height:20, 
+                                    // tintColor: "#0077b6"
+                                }}
                                 />
                         </View>
                     )
-                }
+                },
+                tabBarOptions: {
+                    activeTintColor: 'tomato',
+                    inactiveTintColor: 'gray',
+                  },
             }}
         />
         <Tab.Screen
