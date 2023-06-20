@@ -21,10 +21,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ruthchisom.mentorapp"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c1c619bf-a05f-4780-bc78-3bec80bdea7b"
+      }
+    },
+    "owner": "ruthchisom"
   }
 }
