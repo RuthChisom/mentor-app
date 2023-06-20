@@ -36,9 +36,26 @@ eas init --id c1c619bf-a05f-4780-bc78-3bec80bdea7b
     "production": {}
   }
 } -->
+<!-- OR -->
+<!-- For iOS Simulator -->
+<!-- here's how the eas.json should now look like -->
+<!-- {
+  "build": {
+    "preview": {
+      "ios": {
+        "simulator": true
+      }
+    },
+    "production": {}
+  }
+} -->
 
-6. Run your build  -->
-- eas build -p android --profile preview
+6. Run your build
+- eas build -p android --profile preview <!-- For Android Emulator/device -->
+<!-- you'd be prompted to install or open the android emulator -->
+<!-- OR -->
+- eas build -p ios --profile preview <!-- For iOS Simulator -->
+<!-- you'd be prompted to install or open the ios simulator -->
 <!-- you can name the profile whatever you like .e.g. preview, local, emulator... -->
 
 7. Once your build is completed, copy the URL to the APK from the build details page or the link provided when eas build is done. Send the URL to users to download, install the APK and run it.
