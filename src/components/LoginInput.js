@@ -42,7 +42,7 @@ const LoginInput = () => {
       }
 
   return (
-    <View style={{margin: 15, marginTop:-15}}>
+    <View style={{margin: 15, marginTop:-15,paddingBottom:300}}>
 
       {/* Email */}
       <Text style={{fontWeight:'bold'}}>Email*</Text>

@@ -104,7 +104,7 @@ const OTPInput = () => {
   }
 
   return (
-    <View style={{marginTop:150}}>
+    <View style={{marginTop:150,paddingBottom:300}}>
       <View style={{flexDirection:'row', justifyContent:'space-evenly'}}>
         {renderInputs()}
       </View>

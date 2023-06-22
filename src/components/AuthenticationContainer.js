@@ -14,14 +14,14 @@ const AuthenticationContainer = ({title,subtitle,secondTag}) => {
         <ImageBackground
           source={require("../assets/images/register.jpg")}
           // resizeMode="cover"
-          style = {{width:'100%', height:'65%'}}
+          style = {{width:'100%', height:'50%'}}
         >
           <FirstSection title={title} subtitle={subtitle}/>
         </ImageBackground>
         
       {/* </View> */}
       {/* registration form */}
-      <View style={{ marginTop:-220}}>
+      <View style={{ marginTop:-230}}>
         {/* <RegisterInput/> */}
         {secondTag}
       </View>

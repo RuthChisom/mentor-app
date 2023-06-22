@@ -89,7 +89,7 @@ const RegisterInput = () => {
         }
 
   return (
-    <View style={{margin: 15, marginTop:-15}}>
+    <View style={{margin: 15, marginTop:-15,paddingBottom:300}}>
         {/* Name */}
         <Text style={{fontWeight:'bold'}}>Full Name*</Text>
         <TextInput
