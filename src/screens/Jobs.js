@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, Image, FlatList, TouchableOpacity, Modal, StyleSheet, Animated, Alert } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import { useNavigation } from '@react-navigation/native';
 
@@ -6,6 +6,31 @@ const Jobs = () => {
   const navigation = useNavigation();
 
     const [jobs, setJobs] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const slideAnimation = new Animated.Value(0);
+
+    const handleBoxPress = ({item}) => {
+      console.log(item.id);
+      setModalVisible(true);
+      Animated.spring(slideAnimation, {
+        toValue: 1,
+        useNativeDriver: true,
+      }).start();
+    };
+  
+    const handleCloseModal = () => {
+      Animated.spring(slideAnimation, {
+        toValue: 0,
+        useNativeDriver: true,
+      }).start(() => {
+        setModalVisible(false);
+      });
+    };
+  
+    const modalTranslateY = slideAnimation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [100, 0],
+    });
 
     useEffect(() => {
       fetchJobs();
@@ -19,63 +44,85 @@ const Jobs = () => {
           const data = [
               {
               id: 0,
-              name: "Ruth Chisom",
-              occupation: "Mobile Developer",
-              text: "The mobile developer will be responsible for frequently continuing. Least their she you now above going stand forth. He pretty future afraid should genius spirit on. Set property addition building pu",
-              profile: require("../assets/images/profile.jpg"),
-              image: require("../assets/images/post6.webp"),
-              likes: 1550,
+              company: "Stutern Limited",
+              occupation: "UX Designer",
+              shortText: "The mobile developer will be responsible for frequently continuing. Least the",
+              fullText: "The mobile developer will be responsible for frequently continuing. Least the mobile developer will be responsible for frequently continuing. Least tThe mobile developer will be responsible for frequently continuing. Least t",
+              responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
+              location: "Lagos",
+              postedAt: "2days",
+              pay: 100000,
+              currency: 'N'
               },
               {
                   id: 1,
-                  name: "Watch See",
-                  occupation: "Grahpic Designer",
-                  text: "Pleased him another was settled for. Moreover end horrible endeavor entrance any families. Income appear extent on of thrown in admire. Stanhill on we if vicinity material in. Saw him",
-                  profile: require("../assets/images/profile1.jpg"),
-                  image: require("../assets/images/post1.jpg"),
-                  likes: 2000,
-              },{
+                  company: "Seel Group",
+                  occupation: "Graphic Designer",
+                  shortText: "Pleased him another was settled for. Moreover end horrible endeavor ent",
+                  fullText: "Pleased him another was settled for. Moreover end horrible endeavor entr was settled for. Moreover end horrible ender was settled for. Moreover end horrible ende",
+                  responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
+                  location: "Abuja",
+                  postedAt: "10days",
+                  pay: 50000,
+                currency: 'N'
+            },{
                   id: 2,
-                  name: "Nathaniel Bassey",
+                  company: "Google Nigeria",
                   occupation: "Fashion Designer",
-                  text: "Much did had call new drew that kept. Limits expect wonder law she. Now has you views woman noisy match money rooms. To up remark it eldest length oh passed. Off because yet mistake feelin",
-                  profile: require("../assets/images/profile2.jpeg"),
-                  image: require("../assets/images/post2.jpg"),
-                  likes: 1550,
-              },{
+                  shortText: "Much did had call new drew that kept. Limits expect wonder law she. Now haelin",
+                  fullText: "Pleased him another was settled for. Moreover end horrible endeavor entr was settled for. Moreover end horrible ender was settled for. Moreover end horrible ende",
+                  responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
+                  location: "Ibadan",
+                  postedAt: "3weeks",
+                  pay: 170000,
+              currency: 'N'
+            },{
                   id: 3,
-                  name: "Obi Agu",
+                  company: "Accelerate limited",
                   occupation: "Content Creator",
-                  text: "Needed feebly dining oh talked wisdom oppose at. Applauded use attempted strangers now are middleton concluded had. It is tried ",
-                  profile: require("../assets/images/profile3.jpg"),
-                  image: require("../assets/images/post3.jpg"),
-                  likes: 1550,
-              },{
+                  shortText: "Needed feebly dining oh talked wisdom oppose at. Applauded use attempted stranged ",
+                  fullText: "Pleased him another was settled for. Moreover end horrible endeavor entr was settled for. Moreover end horrible ender was settled for. Moreover end horrible ende",
+                  responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
+                  location: "London",
+                  postedAt: "1month",
+                  pay: 30000,
+              currency: 'N'
+            },{
                   id: 4,
-                  name: "Elizabeth Queen",
+                  company: "Truejoy Wears",
                   occupation: "Backend Developer",
-                  text: "Kindness to he horrible reserved ye. Effect twenty indeed beyond for not had county. The use him without greatly can private. Increasing it unpleasant no of contrasted no contin",
-                  profile: require("../assets/images/profile4.jpeg"),
-                  image: require("../assets/images/pizza.jpg"),
-                  likes: 1550,
-                  },
+                  shortText: "Kindness to he horrible reserved ye. Effect twenty indecan private. Increa",
+                  fullText: "Pleased him another was settled for. Moreover end horrible endeavor entr was settled for. Moreover end horrible ender was settled for. Moreover end horrible ende",
+                  responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
+                  location: "Kano",
+                  postedAt: "2months",
+                  pay: 750000,
+              currency: 'N'
+            },
               {
                       id: 5,
-                      name: "Abaz Udoh",
+                      company: "She Code Africa",
                       occupation: "Business Consultant",
-                      text: "Whole every miles as tiled at seven or. Wished he entire esteem mr oh by. Possible bed you pleasure civility boy elegance ham. He prevent request by if in pleased. Picture too and",
-                      profile: require("../assets/images/profile5.jpg"),
-                      image: require("../assets/images/post5.webp"),
-                      likes: 2000,
-              },{
+                      shortText: "Whole every miles as tiled at seven or. Wished he entire esteem mr oh too and",
+                      fullText: "Pleased him another was settled for. Moreover end horrible endeavor entr was settled for. Moreover end horrible ender was settled for. Moreover end horrible ende",
+                      responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
+                      location: "Lagos",
+                      postedAt: "4months",
+                      pay: 2000,
+              currency: 'N'
+            },
+            {
                       id: 6,
-                      name: "Femi Adura",
+                      company: "Tulabyte Solutions",
                       occupation: "Techy Lawyer",
-                      text: "Sportsman delighted improving dashwoods gay instantly happiness six. Ham now amounted absolute not mistaken way pleasant whatever. At an these still no dried folly stood thing. Rapid it o",
-                      profile: require("../assets/images/city.jpg"),
-                      image: require("../assets/images/poundo.jpg"),
-                      likes: 1550,
-                      },
+                      shortText: "Sportsman delighted improving dashwoods gay instantly happiness six. Ham noo",
+                      fullText: "Sportsman delighted improving dashwoods gay instantly happiness six. Ham nooghted improving dashwoods gay instantly happinessghted improving dashwoods gay instantly happinessghted improving dashwoods gay instantly happiness",
+                      responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
+                      location: "Asaba",
+                      postedAt: "6months",
+                      pay: 155000,
+              currency: 'N'
+            },
           ];
         setJobs(data);
       } catch (error) {
@@ -85,141 +132,99 @@ const Jobs = () => {
 
     const renderItem = ({ item }) => (
       <View>
-        <TouchableOpacity style={{backgroundColor:'#5D3FD3', borderRadius:15, margin:10, padding:10}}>
-          <Text style={{fontWeight:'bold', fontSize:20, color:'white'}}>{item.occupation}</Text>
-          <View style={{ margin:10}}>
-              {/* <View style={{ marginTop:5, justifyContent:'space-between', flexDirection:'row'}}> */}
-                  {/* <View style={{ justifyContent:'space-between', flexDirection:'row'}}>
-                          <Image 
-                              source={item.profile}
-                              style={{width:40, height:40, borderRadius:20}}
-                          />
-                          <View>
-                              <Text style={{fontWeight:'bold'}}> {item.name}</Text>
-                              <Text style={{fontSize:12}}> {item.occupation}</Text>
-                          </View>
-                  </View>
-                  <View>
-                          <Image 
-                              source={require('../assets/icons/options.png')}
-                              style={{width:25, height:25, margin:5}}
-                          />
-                  </View> */}
-              {/* </View> */}
-              <Text style={{color:'white'}}>
-                      {item.text}
-                      <Text 
-                          style={{color:'#3EACFA'}}
-                          onPress={() => {
-                              // navigation.navigate('Detail');
-                          }}
-                      >
-                              ...See more
-                          </Text>
-              </Text>
-              {/* <Image
-                  source={item.image}
-                  style={{height:180, width:'100%'}}
-              />
-              <Text style={{fontSize:12, color:'gray'}}>{item.likes.toLocaleString()} likes</Text>
-              <View style={{padding:10,flexDirection:'row', justifyContent:'space-between'}}>
-                  <View>
-                      <Image
-                          source={require('../assets/icons/like.png')}
-                          style={{height:20, width:20, alignSelf:'center'}}
-                          onPress={() => {
-                              //{storeLike}
-                          }}
-                      />
-                      <Text style={{fontSize:12, color:'gray'}}> Like</Text>
-                  </View>
-                  <View>
-                      <Image
-                          source={require('../assets/icons/edit.png')}
-                          style={{height:20, width:20, alignSelf:'center'}}
-                          onPress={() => {
-                              //{sendComment}
-                          }}
-                      />
-                      <Text style={{fontSize:12, color:'gray'}}> Comment</Text>
-                  </View>
-                  <View>
-                      <Image
-                          source={require('../assets/icons/retweet.png')}
-                          style={{height:20, width:20, alignSelf:'center'}}
-                          onPress={() => {
-                              //{repostMessage}
-                          }}
-                      />
-                      <Text style={{fontSize:12, color:'gray'}}> Repost</Text>
-                  </View>
-                  <View>
-                      <Image
-                          source={require('../assets/icons/send.png')}
-                          style={{height:20, width:20, alignSelf:'center'}}
-                          onPress={() => {
-                              // navigation.navigate('Send');
-                              //{sendMessage}
-                          }}
-                      />
-                      <Text style={{fontSize:12, color:'gray'}}> Send</Text>
-                  </View>
-              </View> */}
+        <TouchableOpacity style={{backgroundColor:'#5865BA', borderRadius:15, margin:10, padding:10}} onPress={() => handleBoxPress({item})} >
+            <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                <View>
+                    <Text style={{fontWeight:'bold', fontSize:18, color:'white'}}>{item.occupation}</Text>
+                    <Text style={{fontSize:12, color:'white'}}>{item.company}</Text>
+                </View>
+                <Image 
+                              source={require('../assets/icons/bookmark.png')}
+                              style={{width:20, height:20, margin:5, tintColor:'white'}}
+                />
+            </View>
+            <View style={{ marginTop:5, marginBottom:20, justifyContent:'space-between', flexDirection:'row'}}>
+                <Image
+                              source={require('../assets/icons/pin.png')}
+                              style={{width:15, height:15, tintColor:'white'}}
+                />
+                <Text style={{fontSize:9, color:'white',left:-275}}>{item.location}</Text>
+            </View>
+            {/* <View style={{ margin:10}}> */}
+                <Text style={{color:'white'}}>{item.shortText}..... </Text>
+            {/* </View> */}
+          <View style={{ marginTop:25, justifyContent:'space-between', flexDirection:'row'}}>
+            <Text style={{fontSize:9, color:'white'}}>posted {item.postedAt} ago</Text>
+            <Text style={{fontSize:12, color:'white'}}>{item.currency}{item.pay.toLocaleString()}</Text>
           </View>
-          {/* <View style={{borderBottomWidth:5, borderBottomColor:'gray'}}></View> */}
+
+          <Modal
+            animationType="none"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={handleCloseModal}
+          >
+            <Animated.View style={[styles.modalContainer, { transform: [{ translateY: modalTranslateY }] }]}>
+              {/* Modal content */}
+                    <View style={{ margin:10}}> 
+                      <View>
+                          <Text style={{fontWeight:'bold', fontSize:18}}>{item.occupation}</Text>
+                          <Text style={{fontSize:12}}>{item.company}</Text>
+                          <View style={{ marginTop:5, marginBottom:20, justifyContent:'space-between', flexDirection:'row'}}>
+                          <Image
+                                        source={require('../assets/icons/pin.png')}
+                                        style={{width:15, height:15}}
+                          />
+                          <Text style={{fontSize:9, left:-275}}>{item.location}</Text>
+                      </View>
+                      </View>
+                      <Text >{item.fullText} </Text>
+                      <Text style={{fontWeight:'bold', fontSize:18, marginTop:35}}>Responsibilities</Text>
+                      <Text>{item.responsibilities}</Text>
+                  </View>
+                  <View style={{ marginTop:25, margin:10, justifyContent:'space-between', flexDirection:'row'}}>
+                    <View>
+                      <Text style={{fontWeight:'bold', fontSize:18}}>Salary</Text>
+                      <Text style={{fontSize:13}}>{item.currency}{item.pay.toLocaleString()}</Text>
+                    </View>
+                    <TouchableOpacity style={styles.closeButton} onPress={handleCloseModal}><Text style={{color:'white'}}>Apply</Text></TouchableOpacity>
+                  </View>
+            </Animated.View>
+          </Modal>
         </TouchableOpacity>
       </View>
     );
 
     return (
       <SafeAreaView style={{backgroundColor:'white'}}>
-        {/* <ScrollView> */}
-            {/* <View style={{marginTop:40,padding:10,flexDirection:'row', justifyContent:'space-between'}}>
-                
-                <Image 
-                    source={require('../assets/images/logo.png')}
-                    style={{height:40, width:'35%'}}
-                    onPress={() => {
-                        navigation.navigate('Posts');
-                    }}
-                />
-                <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate('Spaces');
-                        }}
-                    >
-                        <Image 
-                            source={require('../assets/icons/mic.png')}
-                            style={{width:20, height:20, margin:5}}
-                            
-                        />
-                    </TouchableOpacity>
-                    <Image 
-                        source={require('../assets/icons/notification.png')}
-                        style={{width:20, height:20, margin:5}}
-                    />
-                    <Image 
-                        source={require('../assets/icons/comment.png')}
-                        style={{width:20, height:20, margin:5}}
-                    />
-                </View>
-            </View> */}
-
-            <View style={{borderBottomWidth:1, borderBottomColor:'gray'}}></View>
-
-<View>
-      <FlatList
-        data={jobs}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={renderItem}
-        contentContainerStyle={{ paddingBottom: 200 }} // Add bottom padding to avoid cutting off last item
-      />
-    </View>
-
-        {/* </ScrollView> */}
+        <View style={{borderBottomWidth:1, borderBottomColor:'gray'}}></View>
+        <View>
+          <FlatList
+            data={jobs}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={renderItem}
+            contentContainerStyle={{ paddingBottom: 200 }} // Add bottom padding to avoid cutting off last item
+          />
+        </View>
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  modalContainer: {
+    // flex: 1,
+    // justifyContent: 'flex-end',
+    backgroundColor: 'white',
+    width: '100%',
+    height: '80%',
+  },
+  closeButton: {
+    backgroundColor: '#3EACFA',
+    borderRadius:10,
+    padding:10,
+    width:90,
+    alignItems:'center'
+  },
+});
 
 export default Jobs
