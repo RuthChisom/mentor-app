@@ -64,6 +64,7 @@ const LoginInput = () => {
             placeholder={'Please enter your Password '}
             placeholderTextColor={{color:'red'}}
             style={{ paddingLeft: 10,marginTop: 5, marginBottom: 10, flex:1}}
+            keyboardType='visible-password'
             secureTextEntry={!showPassword}
             require
         />

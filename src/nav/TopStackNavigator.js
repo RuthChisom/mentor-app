@@ -12,6 +12,7 @@ import BeMentor from '../screens/BeMentor';
 import Profile from '../screens/Profile';
 // import Posts from '../screens/Posts';
 import Spaces from '../screens/Spaces';
+import JobEdit from '../screens/JobEdit';
 
 const Stack = createNativeStackNavigator();
 
@@ -30,6 +31,7 @@ const TopStackNavigator = () => {
           <Stack.Screen name='Profile' component={Profile}/>
           {/* <Stack.Screen name='Posts' component={Posts}/> */}
           <Stack.Screen name='Spaces' component={Spaces}/>
+          <Stack.Screen name='JobEdit' component={JobEdit}/>
       
     </Stack.Navigator>
   )

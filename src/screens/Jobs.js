@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, FlatList, TouchableOpacity, Modal, StyleSheet, Animated, PanResponder } from 'react-native'
+import { View, Text, SafeAreaView, Image, FlatList, TouchableOpacity, Modal, StyleSheet, Animated, PanResponder, TextInput } from 'react-native'
 import React, {useState, useEffect, useRef} from 'react'
 import { useNavigation } from '@react-navigation/native';
 
@@ -35,15 +35,15 @@ const Jobs = () => {
     });
 
     //to allow user swipe down to close modal
-    const pan = useRef(new Animated.ValueXY()).current;
+    const pan = useRef(new Animated.ValueXY()).current; //holds the current position of the gesture,
     const panResponder = useRef(
       PanResponder.create({
         onMoveShouldSetPanResponder: () => true,
-        onPanResponderMove: (_, gesture) => {
+        onPanResponderMove: (_, gesture) => {  // when the user swipes down
           pan.setValue({ x: 0, y: gesture.dy });
         },
         onPanResponderRelease: (_, gesture) => {
-          if (gesture.dy > 50) {
+          if (gesture.dy > 50) { // if the swipe distance exceeds 50 pixels
             handleCloseModal();
           } else {
             Animated.spring(pan, { toValue: { x: 0, y: 0 }, useNativeDriver: true }).start();
@@ -66,7 +66,7 @@ const Jobs = () => {
               {
               id: 0,
               company: "Stutern Limited",
-              occupation: "UX Designer",
+              title: "UX Designer",
               shortText: "The mobile developer will be responsible for frequently continuing. Least the",
               fullText: "The mobile developer will be responsible for frequently continuing. Least the mobile developer will be responsible for frequently continuing. Least tThe mobile developer will be responsible for frequently continuing. Least t",
               responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
@@ -78,7 +78,7 @@ const Jobs = () => {
               {
                   id: 1,
                   company: "Seel Group",
-                  occupation: "Graphic Designer",
+                  title: "Graphic Designer",
                   shortText: "Pleased him another was settled for. Moreover end horrible endeavor ent",
                   fullText: "Pleased him another was settled for. Moreover end horrible endeavor entr was settled for. Moreover end horrible ender was settled for. Moreover end horrible ende",
                   responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
@@ -89,7 +89,7 @@ const Jobs = () => {
             },{
                   id: 2,
                   company: "Google Nigeria",
-                  occupation: "Fashion Designer",
+                  title: "Fashion Designer",
                   shortText: "Much did had call new drew that kept. Limits expect wonder law she. Now haelin",
                   fullText: "Pleased him another was settled for. Moreover end horrible endeavor entr was settled for. Moreover end horrible ender was settled for. Moreover end horrible ende",
                   responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
@@ -100,7 +100,7 @@ const Jobs = () => {
             },{
                   id: 3,
                   company: "Accelerate limited",
-                  occupation: "Content Creator",
+                  title: "Content Creator",
                   shortText: "Needed feebly dining oh talked wisdom oppose at. Applauded use attempted stranged ",
                   fullText: "Pleased him another was settled for. Moreover end horrible endeavor entr was settled for. Moreover end horrible ender was settled for. Moreover end horrible ende",
                   responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
@@ -111,7 +111,7 @@ const Jobs = () => {
             },{
                   id: 4,
                   company: "Truejoy Wears",
-                  occupation: "Backend Developer",
+                  title: "Backend Developer",
                   shortText: "Kindness to he horrible reserved ye. Effect twenty indecan private. Increa",
                   fullText: "Pleased him another was settled for. Moreover end horrible endeavor entr was settled for. Moreover end horrible ender was settled for. Moreover end horrible ende",
                   responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
@@ -123,7 +123,7 @@ const Jobs = () => {
               {
                       id: 5,
                       company: "She Code Africa",
-                      occupation: "Business Consultant",
+                      title: "Business Consultant",
                       shortText: "Whole every miles as tiled at seven or. Wished he entire esteem mr oh too and",
                       fullText: "Pleased him another was settled for. Moreover end horrible endeavor entr was settled for. Moreover end horrible ender was settled for. Moreover end horrible ende",
                       responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
@@ -135,7 +135,7 @@ const Jobs = () => {
             {
                       id: 6,
                       company: "Tulabyte Solutions",
-                      occupation: "Techy Lawyer",
+                      title: "Techy Lawyer",
                       shortText: "Sportsman delighted improving dashwoods gay instantly happiness six. Ham noo",
                       fullText: "Sportsman delighted improving dashwoods gay instantly happiness six. Ham nooghted improving dashwoods gay instantly happinessghted improving dashwoods gay instantly happinessghted improving dashwoods gay instantly happiness",
                       responsibilities: "will be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile dewill be responsible for frequently continuing. Least the mobile de",
@@ -156,7 +156,7 @@ const Jobs = () => {
         <TouchableOpacity style={{backgroundColor:'#5865BA', borderRadius:15, margin:10, padding:10}} onPress={() => handleBoxPress({item})} >
             <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                 <View>
-                    <Text style={{fontWeight:'bold', fontSize:18, color:'white'}}>{item.occupation}</Text>
+                    <Text style={{fontWeight:'bold', fontSize:18, color:'white'}}>{item.title}</Text>
                     <Text style={{fontSize:12, color:'white'}}>{item.company}</Text>
                 </View>
                 <Image 
@@ -187,16 +187,16 @@ const Jobs = () => {
           >
             <Animated.View 
               style={[styles.modalContainer, 
-                      { transform: [ { translateY: modalTranslateY }, ...pan.getTranslateTransform() ] }
+                      { transform: [ { translateY: modalTranslateY }, ...pan.getTranslateTransform() ] },
                     ]}
-                    {...panResponder.panHandlers}
+              {...panResponder.panHandlers} //enable the touch gestures to be recognized
             >
               {/* Modal content */}
                   <View style={{borderBottomWidth:3, borderBottomColor:'#5865BA', padding:10, width:'15%', alignSelf:'center'}}></View>
 
                   <View style={{ margin:10, marginTop:20}}> 
                       <View>
-                          <Text style={{fontWeight:'bold', fontSize:18}}>{selectedData.occupation}</Text>
+                          <Text style={{fontWeight:'bold', fontSize:18}}>{selectedData.title}</Text>
                           <Text style={{fontSize:12}}>{selectedData.company}</Text>
                           <View style={{ marginTop:5, marginBottom:20, justifyContent:'space-between', flexDirection:'row'}}>
                           <Image
@@ -215,7 +215,12 @@ const Jobs = () => {
                       <Text style={{fontWeight:'bold', fontSize:16}}>Salary</Text>
                       {selectedData.pay && <Text style={{fontSize:13}}>{selectedData.currency}{selectedData.pay.toLocaleString()}</Text>}
                     </View>
-                    <TouchableOpacity style={styles.closeButton} onPress={handleCloseModal}><Text style={{color:'white'}}>Apply</Text></TouchableOpacity>
+                    <TouchableOpacity 
+                      style={styles.closeButton} 
+                      // onPress={handleCloseModal}
+                    >
+                        <Text style={{color:'white'}}>Apply</Text>
+                    </TouchableOpacity>
                   </View>
             </Animated.View>
           </Modal>
@@ -224,8 +229,33 @@ const Jobs = () => {
     );
 
     return (
-      <SafeAreaView style={{backgroundColor:'white'}}>
-        <View style={{borderBottomWidth:1, borderBottomColor:'gray'}}></View>
+      <View style={{backgroundColor:'white'}}>
+        <View style={{flexDirection:'row', justifyContent:'space-between',margin:10,}}>
+          <View style={{flexDirection:'row', justifyContent:'space-between', borderWidth:.5, borderRadius:25, padding:5, width:'80%'}}>
+            <Image
+                                          source={require('../assets/icons/search.png')}
+                                          style={{width:20, height:20, alignSelf:'center', tintColor:'#98A1B3'}}
+            />
+            <TextInput
+            placeholder='Search'
+            style={{left:-180, padding:5}}
+            ></TextInput>
+          </View>
+          <TouchableOpacity 
+            style={{alignSelf:'center', alignItems:'center'}}
+            onPress={() => {
+              navigation.navigate('JobEdit');
+          }}
+          >
+            <Image
+                                            source={require('../assets/icons/pencil.png')}
+                                            style={{width:15, height:15, }}
+              />
+            <Text style={{fontSize:12}}>Add Job</Text>
+          </TouchableOpacity>
+        </View>
+        
+        <View style={{borderBottomWidth:3, borderBottomColor:'#98A1B3'}}></View>
         <View>
           <FlatList
             data={jobs}
@@ -234,17 +264,22 @@ const Jobs = () => {
             contentContainerStyle={{ paddingBottom: 200 }} // Add bottom padding to avoid cutting off last item
           />
         </View>
-    </SafeAreaView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   modalContainer: {
-    // flex: 1,
+    flex: 1,
     // justifyContent: 'flex-end',
     backgroundColor: 'white',
     width: '100%',
     height: '80%',
+    ...Platform.select({
+      ios: {
+        zIndex: 1000, // Add a higher zIndex value for iOS
+      },
+    }),
   },
   closeButton: {
     backgroundColor: '#3EACFA',
