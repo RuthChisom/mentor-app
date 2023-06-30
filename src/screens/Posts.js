@@ -6,10 +6,79 @@ const Posts = () => {
     const navigation = useNavigation();
 
     const [posts, setPosts] = useState([]);
+    const [mentors, setMentors] = useState([]);
 
     useEffect(() => {
         fetchPosts();
+        fetchRecommendedMentors();
       }, []);
+
+      const fetchRecommendedMentors = async () => {
+        try {
+            //use this later when connecting to backend
+        //   const response = await fetch('https://example.com/api/mentors/recommended'); // Replace with your JSON API URL
+        //   const data = await response.json();
+            const data = [
+                {
+                id: 0,
+                name: "Sydney Lisa",
+                occupation: "Product Designer",
+                profile: require("../assets/images/city.jpg"),
+                },
+                {
+                    id: 1,
+                    name: "Ama Royce",
+                    occupation: "Business Analyst",
+                    profile: require("../assets/images/profile1.jpg"),
+                },{
+                    id: 2,
+                    name: "Smith Robin",
+                    occupation: "Mobile DesDeveloperigner",
+                    profile: require("../assets/images/profile2.jpeg"),
+                },{
+                    id: 3,
+                    name: "Zenith Akpan",
+                    occupation: "Content Creator",
+                    profile: require("../assets/images/profile5.jpg"),
+                    
+                },{
+                    id: 4,
+                    name: "Elizabeth Queen",
+                    occupation: "Backend Developer",
+                    profile: require("../assets/images/profile4.jpeg"),
+                    },
+                {
+                        id: 5,
+                        name: "Etim Ade",
+                        occupation: "Business Consultant",
+                        profile: require("../assets/images/profile3.jpg"),
+                },{
+                        id: 6,
+                        name: "Femi Adura",
+                        occupation: "Technology Enthusiast",
+                        profile: require("../assets/images/profile.jpg"),
+                        },
+            ];
+          setMentors(data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      const renderMentorItem = ({ item }) => (
+        <View>
+            <View style={{ margin:10}}>
+                <Image
+                    source={item.profile}
+                    style={{height:250, width:200}}
+                />
+                <Text style={{fontSize:15, fontWeight:'bold'}}>{item.name}</Text>
+                <Text style={{fontSize:12}}>{item.occupation}</Text>
+               
+            </View>
+            <View style={{borderBottomWidth:4, borderBottomColor:'#98A1B3'}}></View>
+        </View>
+      );
     
       const fetchPosts = async () => {
         try {
@@ -29,7 +98,7 @@ const Posts = () => {
                 {
                     id: 1,
                     name: "Watch See",
-                    occupation: "Grahpic Designer",
+                    occupation: "Graphic Designer",
                     text: "Pleased him another was settled for. Moreover end horrible endeavor entrance any families. Income appear extent on of thrown in admire. Stanhill on we if vicinity material in. Saw him",
                     profile: require("../assets/images/profile1.jpg"),
                     image: require("../assets/images/post1.jpg"),
@@ -83,8 +152,37 @@ const Posts = () => {
         }
       };
 
-      const renderItem = ({ item }) => (
+      const renderPostItem = ({ item , index}) => {
+
+        if (index === 2) { //show recommended mentors after two posts
+            return(
+            <>
+              <View style={{ margin: 10 , justifyContent:'space-between', flexDirection:'row'}}>
+                <Text style={{ fontWeight: 'bold', fontSize:16 }}>Recommended Mentors</Text>
+                <Text 
+                style={{ color: '#3EACFA', fontSize:12, alignSelf:'center' }}
+                onPress={() => {
+                    navigation.navigate('Mentors');
+                }}
+                >
+                    See All
+                </Text>
+              </View>
+              <FlatList
+                data={mentors}
+                horizontal
+                renderItem={renderMentorItem}
+                keyExtractor={(item) => item.id.toString()}
+              />
+            </>
+            )
+        }
+
+        return(
         <View>
+            
+
+
             <View style={{ margin:10}}>
                 <View style={{ marginTop:5, justifyContent:'space-between', flexDirection:'row'}}>
                     <View style={{ justifyContent:'space-between', flexDirection:'row'}}>
@@ -164,9 +262,10 @@ const Posts = () => {
                     </View>
                 </View>
             </View>
-            <View style={{borderBottomWidth:5, borderBottomColor:'gray'}}></View>
+            <View style={{borderBottomWidth:5, borderBottomColor:'#98A1B3'}}></View>
         </View>
-      );
+        )
+      };
       
     return (
     <SafeAreaView style={{backgroundColor:'white'}}>
@@ -209,7 +308,7 @@ const Posts = () => {
       <FlatList
         data={posts}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={renderItem}
+        renderItem={renderPostItem}
         contentContainerStyle={{ paddingBottom: 200 }} // Add bottom padding to avoid cutting off last item
       />
     </View>
