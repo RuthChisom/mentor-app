@@ -9,56 +9,65 @@ import Explore from '../screens/Explore'
 import Jobs from '../screens/Jobs'
 import ProfileDetails from '../screens/ProfileDetails'
 
-import TopStackNavigator from '../nav/TopStackNavigator' 
+// import TopStackNavigator from '../nav/TopStackNavigator' 
+import Ionicons from '../../node_modules/react-native-vector-icons/Ionicons'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Feather from '../../node_modules/react-native-vector-icons/Feather'
 
 const Tab = createBottomTabNavigator();
 
 // Custom bottom tab bar component
-const CustomTabBar = ({ state, descriptors, navigation }) => {
-    return (
-      <View style={styles.tabBarContainer}>
-        {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key];
-          const label = options.tabBarLabel || options.title || route.name;
+// const CustomTabBar = ({ state, descriptors, navigation }) => {
+//     return (
+//       <View style={styles.tabBarContainer}>
+//         {state.routes.map((route, index) => {
+//           const { options } = descriptors[route.key];
+//           const label = options.tabBarLabel || options.title || route.name;
   
-          const isFocused = state.index === index;
+//           const isFocused = state.index === index;
   
-          const onPress = () => {
-            const event = navigation.emit({
-              type: 'tabPress',
-              target: route.key,
-              canPreventDefault: true,
-            });
+//           const onPress = () => {
+//             const event = navigation.emit({
+//               type: 'tabPress',
+//               target: route.key,
+//               canPreventDefault: true,
+//             });
   
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name);
-            }
-          };
+//             if (!isFocused && !event.defaultPrevented) {
+//               navigation.navigate(route.name);
+//             }
+//           };
   
-          return (
-            <TouchableOpacity
-              key={route.key}
-              onPress={onPress}
-              style={[styles.tabItem, { opacity: isFocused ? 1 : 0.5 }]}
-            >
-              {/* Insert your tab icon or content */}
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-    );
-  };
+//           return (
+//             <TouchableOpacity
+//               key={route.key}
+//               onPress={onPress}
+//               style={[styles.tabItem, { opacity: isFocused ? 1 : 0.5 }]}
+//             >
+//               {/* Insert your tab icon or content */}
+//             </TouchableOpacity>
+//           );
+//         })}
+//       </View>
+//     );
+//   };
   
 const BottomTabNavigator = () => {
   return (
       <Tab.Navigator
-        initialRouteName="TopStackNavigator"
-        activeColor="red"
-      inactiveColor="gray"
+      //   initialRouteName="TopStackNavigator"
+      //   activeColor="red"
+      // inactiveColor="gray"
         // screenOptions={{ headerShown: false, tabBarShowLabel: false }}
-        screenOptions={{ tabBarShowLabel: false,
-            activeTintColor: 'red', // Default activeTintColor
-            inactiveTintColor: 'gray', }}
+        screenOptions={{ 
+          tabBarShowLabel: false,
+          tabBarStyle: {borderRadius:25, margin:10,bottom:5, position:'absolute' },
+          tabBarInactiveTintColor:'red',
+          tabBarActiveTintColor: 'yellow',
+          // tabbar
+            // activeTintColor: 'red', // Default activeTintColor
+            // inactiveTintColor: 'gray', 
+          }}
             // tabBar={props => <CustomTabBar {...props}/>}
       >
       {/* Define your tab screens here */}
@@ -67,9 +76,9 @@ const BottomTabNavigator = () => {
             component={Posts}
             options={{
                 headerShown:false,
-                tabBarIcon: () => {
+                tabBarIcon: ({color, size}) => {
                     return (
-                        <View style={{paddingTop: 12, alignItems: 'center', justifyContent: 'center'}}>
+                        <View style={{alignItems: 'center', justifyContent: 'center'}}>
                             <Image
                                 source={require("../assets/icons/home.png")}
                                 style={{width:20, height:20, 
@@ -78,6 +87,7 @@ const BottomTabNavigator = () => {
                                 />
                         </View>
                     )
+                    // <Ionicons name='home-outline' color={color} size={size}/>
                 },
                 tabBarOptions: {
                     activeTintColor: 'tomato',
@@ -90,15 +100,17 @@ const BottomTabNavigator = () => {
             component={Explore}
             options={{
                 // headerShown:false,
-                tabBarIcon: () => {
+                tabBarIcon: ({color, size}) => {
                     return (
-                        <View style={{paddingTop: 12, alignItems: 'center', justifyContent: 'center'}}>
+                        <View style={{alignItems: 'center', justifyContent: 'center'}}>
                             <Image
                                 source={require("../assets/icons/application.png")}
                                 style={{width:20, height:20}}
                                 />
                         </View>
                     )
+                    // <Feather name='shopping-bag' color={color} size={size}/>
+
                 }
             }}
             
@@ -108,15 +120,16 @@ const BottomTabNavigator = () => {
             component={postEdit}
             options={{
                 // headerShown:false,
-                tabBarIcon: () => {
+                tabBarIcon: ({color, size}) => {
                     return (
-                        <View style={{paddingTop: 12, alignItems: 'center', justifyContent: 'center'}}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center'}}>
                             <Image
                                 source={require("../assets/icons/add.png")}
                                 style={{width:20, height:20}}
                                 />
                         </View>
                     )
+                    // <Ionicons name='heart-outline' color={color} size={size}/>
                 }
             }}
         />
@@ -125,15 +138,16 @@ const BottomTabNavigator = () => {
             component={Jobs}
             options={{
                 // headerShown:false,
-                tabBarIcon: () => {
+                tabBarIcon: ({color, size}) => {
                     return (
-                        <View style={{paddingTop: 12, alignItems: 'center', justifyContent: 'center'}}>
+                        <View style={{alignItems: 'center', justifyContent: 'center'}}>
                             <Image
                                 source={require("../assets/icons/suitcase.png")}
                                 style={{width:20, height:20}}
                                 />
                         </View>
                     )
+                    // <Ionicons name='home-outline' color={color} size={size}/>
                 }
             }}
         />
@@ -144,7 +158,7 @@ const BottomTabNavigator = () => {
                 headerShown:false,
                 tabBarIcon: () => {
                     return (
-                        <View style={{paddingTop: 12, alignItems: 'center', justifyContent: 'center'}}>
+                        <View style={{alignItems: 'center', justifyContent: 'center'}}>
                             <Image
                                 source={require("../assets/icons/user.png")}
                                 style={{width:20, height:20}}
@@ -155,14 +169,14 @@ const BottomTabNavigator = () => {
             }}
         />
 
-        <Tab.Screen 
+        {/* <Tab.Screen 
           name="TopStackNavigator" 
           component={TopStackNavigator}
           options={{
             headerShown:false,
             tabBarStyle: {display: "none",},
           }}
-           />
+           /> */}
 
       </Tab.Navigator>
   )

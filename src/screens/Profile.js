@@ -38,7 +38,7 @@ const Profile = () => {
                 <Text style={{textAlign:'center', fontSize: 20, fontWeight:'bold'}}>Create Profile</Text>
                 <Text 
                     style={{fontSize:12, color:'#3EACFA', padding:8}}
-                    onPress={() => {navigation.navigate('Home')}}
+                    onPress={() => {navigation.navigate('Posts')}}
                 >
                     Skip
                 </Text>

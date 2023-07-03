@@ -10,11 +10,12 @@ import WelcomeSecond from '../screens/WelcomeSecond';
 import Interests from '../screens/Interests';
 import BeMentor from '../screens/BeMentor';
 import Profile from '../screens/Profile';
-// import Posts from '../screens/Posts';
+import Posts from '../screens/Posts';
 import Spaces from '../screens/Spaces';
 import JobEdit from '../screens/JobEdit';
 import Mentors from '../screens/Mentors';
 
+import BottomTabNavigator from './BottomTabNavigator'
 const Stack = createNativeStackNavigator();
 
 const TopStackNavigator = () => {
@@ -34,6 +35,7 @@ const TopStackNavigator = () => {
           <Stack.Screen name='Spaces' component={Spaces}/>
           <Stack.Screen name='JobEdit' component={JobEdit}/>
           <Stack.Screen name='Mentors' component={Mentors}/>
+          <Stack.Screen name='Posts' component={BottomTabNavigator}/>
       
     </Stack.Navigator>
   )
