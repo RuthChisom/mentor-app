@@ -1,4 +1,10 @@
-# To build a React native app for users to install via link instead of downloading from the store
+# A social media mobile app to connect users (mentors to mentees)
+
+
+
+
+
+**  To build a React native app for users to install via link instead of downloading from the store **
 
 1. Create an Expo account at https://expo.dev/signup
 
