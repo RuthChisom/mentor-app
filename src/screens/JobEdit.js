@@ -1,7 +1,9 @@
 import { View, Text, TextInput, TouchableOpacity , SafeAreaView, ScrollView, Alert, DatePickerIOSBase} from 'react-native'
 import React, {useState} from 'react'
+import { useNavigation } from '@react-navigation/native';
 
 const JobEdit = () => {
+    const navigation = useNavigation();
     const [title, setTitle] = useState('');
     const [company, setCompany] = useState('');
     const [category, setCategory] = useState('');
@@ -70,7 +72,7 @@ const JobEdit = () => {
                         onChangeText={setDeadline}
                         placeholder={'When will the job opening be closed?'}
                         style={{borderWidth: 2,padding: 10, borderColor: '#E1E2E6', borderRadius: 10, marginTop: 5, marginBottom: 10}}
-                        keyboardType='visible-password'
+                        // keyboardType='visible-password'
                 />
                 {/* <DatePickerIOS
         style={styles.datePicker}

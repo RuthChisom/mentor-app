@@ -131,7 +131,7 @@ const RegisterInput = () => {
             placeholderTextColor={{color:'red'}}
             style={{ paddingLeft: 10,marginTop: 5, marginBottom: 10, flex:1}}
             secureTextEntry={!showPassword}
-            keyboardType='visible-password'
+            // keyboardType='visible-password'
             require
         />
         <TouchableOpacity

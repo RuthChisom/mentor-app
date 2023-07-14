@@ -217,7 +217,7 @@ const Jobs = () => {
                     </View>
                     <TouchableOpacity 
                       style={styles.closeButton} 
-                      // onPress={handleCloseModal}
+                      onPress={handleCloseModal}
                     >
                         <Text style={{color:'white'}}>Apply</Text>
                     </TouchableOpacity>
